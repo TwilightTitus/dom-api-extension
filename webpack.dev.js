@@ -10,7 +10,7 @@ module.exports = merge(common, {
     },
     devtool : 'inline-source-map',   
     output : {
-	    filename : 'dev.bundle-' + project.version + '.js',
+	    filename : project.name + '-' + project.version + '.js',
         path : path.resolve(__dirname, 'dist')
     }
 });

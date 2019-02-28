@@ -6,7 +6,7 @@ const project = require("./package.json");
 module.exports = merge(common,{
     mode: 'production',
     output : {
-	    filename : 'bundle-' + project.version + '.js',
+	    filename : project.name + '-' + project.version + '.min.js',
         path : path.resolve(__dirname, 'dist')
     }
 });
