@@ -1,4 +1,13 @@
 (function(Global) {
+
+	Global.de = Global.de || {};
+	Global.de.titus = Global.de.titus || {};
+	Global.de.titus.dom = Global.de.titus.dom || {};
+	Global.de.titus.dom.api = Global.de.titus.dom.api || {};
+	Global.de.titus.dom.api.extention = {
+		VERSION : "${version}"
+	};
+
 	const parser = new DOMParser();
 
 	Global.find = function() {
@@ -13,8 +22,7 @@
 		if (typeof arguments[0] !== "string")
 			throw new Error("The first argument must be a string!");
 
-		let body = parser.parseFromString(arguments[0].trim(),
-				arguments[1] || "text/html").find("body");
+		let body = parser.parseFromString(arguments[0].trim(), arguments[1] || "text/html").find("body");
 		let frag = document.createDocumentFragment();
 		let nodes = body.childNodes;
 		while (nodes.length != 0)
