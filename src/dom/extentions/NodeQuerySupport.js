@@ -1,5 +1,3 @@
-import "../../polyfill/Array";
-
 const support = function(Prototype) {
 	
 	Prototype.is = function() {

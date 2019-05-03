@@ -1,4 +1,3 @@
-import "../../polyfill/Array";
 const support = function(Prototype) {
 	const InputTypes =[
 		{

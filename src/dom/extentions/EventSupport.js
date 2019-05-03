@@ -1,5 +1,3 @@
-import "../../polyfill/CustomEvent";
-
 const support = function(Prototype) {
 	const WrappedEventHandler = function(aConfig, aCallback ,aEvent){
 		if(typeof aConfig.filter !== "undefined" && !aEvent.target.is(aConfig.filter))		

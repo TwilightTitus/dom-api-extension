@@ -1,5 +1,3 @@
-import "../polyfill/Array";
-
 const extendPrototype = function(){
 	let args = 	Array.from(arguments);
 	let prototype = args.shift(); 
