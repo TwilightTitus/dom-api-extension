@@ -1,8 +1,8 @@
 if (typeof window.CustomEvent !== "function") {
 	function CustomEvent(event, params) {
 		params = params || {
-		    bubbles : false,
-		    cancelable : false,
+		    bubbles : true,
+		    cancelable : true,
 		    detail : null
 		};
 		let evt = document.createEvent('CustomEvent');
