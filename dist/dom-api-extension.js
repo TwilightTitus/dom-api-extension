@@ -147,7 +147,7 @@ module.exports = g;
 	Global.de.titus.dom = Global.de.titus.dom || {};
 	Global.de.titus.dom.api = Global.de.titus.dom.api || {};
 	Global.de.titus.dom.api.extention = {
-		VERSION : "1.0.2"
+		VERSION : "1.0.2-beta1"
 	};
 
 	const parser = new DOMParser();
