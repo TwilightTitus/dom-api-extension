@@ -1,5 +1,6 @@
-const support = function(Prototype) {	
-	
+import Extender from "../../utils/Extender";
+
+const support = Extender("HtmlClassSupport", function(Prototype) {	
 	Prototype.addClass = function() {
 		if(arguments.length == 1)
 			arguments[0].split(/\s+/).forEach((function(clazz){
@@ -38,5 +39,5 @@ const support = function(Prototype) {
 		
 		return this;
 	};
-};
+});
 export default support;

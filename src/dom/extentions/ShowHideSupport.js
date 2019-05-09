@@ -1,5 +1,6 @@
-const support = function(Prototype) {
+import Extender from "../../utils/Extender";
 
+const support = Extender("ShowHideSupport", function(Prototype) {
 	Prototype.show = function(){
 		if(this.__ishide){
 			this.style.display = this.__display || "";
@@ -25,5 +26,5 @@ const support = function(Prototype) {
 			return this.hide();
 	};
 	
-};
+});
 export default support;

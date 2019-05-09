@@ -1,4 +1,6 @@
-const support = function(Prototype) {
+import Extender from "../../utils/Extender";
+
+const support = Extender("BasicQuerySupport",function(Prototype) {
 	const parentSelector = /:parent(\(\"([^\)]*)\"\))?/i;
 	
 	Prototype.find = function(aSelector) {
@@ -27,6 +29,6 @@ const support = function(Prototype) {
 		else
 			return this.querySelectorAll(aSelector);
 	};
-};
+});
 export default support;
 

@@ -1,4 +1,6 @@
-const support = function(Prototype) {
+import Extender from "../../utils/Extender";
+
+const support = Extender("ValueSupport", function(Prototype) {
 	const InputTypes =[
 		{
 			selector : "select",
@@ -97,5 +99,5 @@ const support = function(Prototype) {
 		}		
 	};
 	
-};
+});
 export default support;

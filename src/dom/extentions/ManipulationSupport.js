@@ -1,4 +1,6 @@
-const support = function(Prototype) {
+import Extender from "../../utils/Extender";
+
+const support = Extender("ManipulationSupport", function(Prototype) {
 
 	Prototype.attr = function() {
 		if (arguments.length == 0)
@@ -52,5 +54,5 @@ const support = function(Prototype) {
 		return this;
 	};
 	
-};
+});
 export default support;

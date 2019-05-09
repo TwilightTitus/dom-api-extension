@@ -1,4 +1,4 @@
-
+import "./dom/EventTarget.js";
 import "./dom/Node.js";
 import "./dom/Document";
 import "./dom/HTMLElement";

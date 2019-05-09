@@ -1,4 +1,5 @@
-const support = function(Prototype) {
+import Extender from "../../utils/Extender";
+const support = Extender("DataSupport", function(Prototype) {
 	Prototype.data = function() {
 		if (typeof this.__data === "undefined") {
 			this.__data = {};
@@ -18,5 +19,5 @@ const support = function(Prototype) {
 		
 		return this;
 	};
-};
+});
 export default support;

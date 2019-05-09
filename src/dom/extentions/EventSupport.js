@@ -1,4 +1,6 @@
-const support = function(Prototype) {
+import Extender from "../../utils/Extender";
+
+const support = Extender("EventSupport", function(Prototype) {
 	const WrappedEventHandler = function(aConfig, aCallback ,aEvent){
 		if(typeof aConfig.filter !== "undefined" && !aEvent.target.is(aConfig.filter))		
 			return;
@@ -107,5 +109,5 @@ const support = function(Prototype) {
 		this.dispatchEvent(event);
 		return this;
 	};
-};
+});
 export default support;

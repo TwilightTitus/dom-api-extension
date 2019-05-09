@@ -1,5 +1,6 @@
-const support = function(Prototype) {
-	
+import Extender from "../../utils/Extender";
+
+const support = Extender("NodeQuerySupport", function(Prototype) {
 	Prototype.is = function() {
 		if(arguments.length == 1){
 			if(typeof arguments[0] === "string")
@@ -78,5 +79,5 @@ const support = function(Prototype) {
 		if(typeof result !== "undefined")
 			return result[0];
 	};
-};
+});
 export default support;

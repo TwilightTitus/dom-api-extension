@@ -1,4 +1,6 @@
-const support = function(Prototype) {		
+import Extender from "../../utils/Extender";
+
+const support = Extender("ListSupport", function(Prototype) {		
 	Prototype.indexOf = function() {
 		for(let i = 0; i < this.length; i++)
 			if(this[i] == arguments[0])
@@ -21,5 +23,5 @@ const support = function(Prototype) {
 		if(this.length > 0)
 			return this[this.length - 1];
 	};
-};
+});
 export default support;
