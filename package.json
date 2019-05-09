@@ -1,6 +1,6 @@
 {
   "name": "dom-api-extension",
-  "version": "1.0.2-beta2",
+  "version": "1.0.2-beta3",
   "description": "Extending the nativ browser dom api. It allows you to use the dom api in a fluit api way, like jquery",
   "main": "js/index.js",
   "scripts": {

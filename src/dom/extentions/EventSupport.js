@@ -43,7 +43,7 @@ const support = function(Prototype) {
 		let eventMap = {};
 		events.forEach((function(result, config, callback, event){
 			let wrappedEventHandler = WrappedEventHandler.bind(this, config, callback);
-			result[event] = wrappedEventHandler;			
+			eventMap[event] = wrappedEventHandler;			
 			addEventListener.call(this, event, wrappedEventHandler, true);
 			
 		}).bind(this, eventMap, handlerConfig, callback));
