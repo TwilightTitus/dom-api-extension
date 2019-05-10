@@ -1,12 +1,18 @@
+const EXTENSIONS_MAP = {};
 const Extender = function(aName, aExtention){
-	return function(aPrototype){
-		if(!aPrototype.__extentions__)
-			aPrototype.__extentions__ = {};
+	return function(aType){	
+		let extensions = EXTENSIONS_MAP[aType.name];
+		if(!extensions)
+			extensions = EXTENSIONS_MAP[aType.name] = {};		
 		
-		if(!aPrototype.__extentions__[aName]){
-			aPrototype.__extentions__[aName] = true;
-			aExtention(aPrototype);
+		if(!extensions[aName]){
+			extensions[aName] = true;
+			aExtention(aType.prototype);
 		}
+		else
+			console.warn("duplicated load of extension \"" + aName + "\"!");
+		
+		
 	}
 };
 

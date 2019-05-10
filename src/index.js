@@ -1,6 +1,8 @@
-import "./dom/EventTarget.js";
-import "./dom/Node.js";
+import "./dom/EventTarget";
+import "./dom/Node";
+import "./dom/Element";
 import "./dom/Document";
+import "./dom/DocumentFragment";
 import "./dom/HTMLElement";
 import "./dom/HTMLInputElement";
 import "./dom/HTMLSelectElement";

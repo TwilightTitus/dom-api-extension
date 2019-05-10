@@ -3,14 +3,16 @@ module.exports = {
 
 	// base path that will be used to resolve all patterns (eg. files,
 	// exclude)
-	basePath : '',
+	basePath : "",
+	
+	//plugins : ["karma-iframes"],
 
 	// frameworks to use
 	// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-	frameworks : [ 'jasmine' ],
+	frameworks : [ "jasmine", "iframes" ],
 
 	// list of files / patterns to load in the browser
-	files : [ 'test/*Test.js', 'test/**/*Test.js', 'test/sites/**/*.html'],
+	files : [ "test/*Test.js", "test/**/*Test.js", "test/sites/**/*.html"],
 
 	// list of files / patterns to exclude
 	exclude : [],
@@ -19,19 +21,19 @@ module.exports = {
 	// available preprocessors:
 	// https://npmjs.org/browse/keyword/karma-preprocessor
 	preprocessors : {
-		'test/**/*Test.js' : [ 'webpack', 'sourcemap' ],
-		'test/sites/**/*.html': ['html2js']
+		"test/**/*Test.js" : [ "webpack", "sourcemap", "iframes" ],
+		"test/sites/**/*.html": ["html2js"]
 	},
 
 	webpack : {
-		mode : 'production',
-		devtool : 'inline-source-map'
+		mode : "production",
+		devtool : "inline-source-map"
 	},
 
 	// test results reporter to use
-	// possible values: 'dots', 'progress'
+	// possible values: "dots", "progress"
 	// available reporters: https://npmjs.org/browse/keyword/karma-reporter
-	reporters : [ 'progress' ],
+	reporters : [ "progress" ],
 
 	// web server port
 	port : 9876,

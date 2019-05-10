@@ -1,26 +1,7 @@
 import Extender from "../../utils/Extender";
+import Utils from "../../utils/Utils";
 
-const support = Extender("ManipulationSupport", function(Prototype) {
-
-	Prototype.attr = function() {
-		if (arguments.length == 0)
-			return this.hasAttributes() ? (function() {
-				let result = {};
-				this.getAttributeNames().forEach((function(result, name) {
-					result[name] = this.getAttribute(name);
-				}).bind(this, result));
-				return result;
-			}).call(this) : undefined;
-		else if (arguments.length == 1)
-			return this.getAttribute(arguments[0]);
-		else if (typeof arguments[1] === "undefined" || arguments[1] == null)
-			this.removeAttribute(arguments[0]);
-		else
-			this.setAttribute(arguments[0], arguments[1]);
-		
-		return this;
-	};
-	
+const support = Extender("ManipulationSupport", function(Prototype) {	
 	Prototype.empty = function(){
 		let nodes = this.childNodes
 		while(nodes.length != 0)			
@@ -45,7 +26,7 @@ const support = Extender("ManipulationSupport", function(Prototype) {
 			Array.from(arguments).forEach((function(content){
 				if(typeof content === "string")
 					this.innerHTML = content;
-				else if(content instanceof Element){
+				else if(content instanceof Node || content instanceof NodeList){
 					this.empty();
 					this.append(content);
 				}
@@ -54,5 +35,26 @@ const support = Extender("ManipulationSupport", function(Prototype) {
 		return this;
 	};
 	
+	const append = Prototype.append;	
+	Prototype.append = function(){
+		for(let i = 0; i < arguments.length; i++){
+			let arg = arguments[i];
+			if(arg instanceof NodeList)
+				Utils.callWithValueList(this, Prototype.appendChild, arg);
+			else if(arg instanceof Node)
+				this.appendChild(arg);
+		}
+	};
+	
+	const prepend = Prototype.prepend;
+	Prototype.prepend = function(){
+		for(let i = 0; i < arguments.length; i++){
+			let arg = arguments[i];
+			if(arg instanceof NodeList)
+				Utils.callWithValueList(this, Prototype.prependChild, arg);
+			else if(arg instanceof Node)
+				this.prependChild(arg);
+		}
+	};	
 });
 export default support;

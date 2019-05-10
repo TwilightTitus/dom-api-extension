@@ -2,7 +2,28 @@ import extendPrototype from "../utils/ExtendPrototype";
 import DelegaterBuilder from "../utils/DelegaterBuilder";
 import ListSupport from "./extentions/ListSupport";
 
-extendPrototype(NodeList.prototype, ListSupport);
+extendPrototype(NodeList, ListSupport);
+
+NodeList.applyTo = function(){
+	let args = Array.from(arguments);
+	let calling = args.shift();
+	let isFunction = typeof calling === "function";
+	let results = [];
+	for(let i = 0; i < this.length; i++){
+		let node = this[i];
+		let	result;
+		if(isfunction)
+			result = calling.apply([node].concat(args));
+		else if(typeof node[calling] === "function")
+			result = node[calling].apply([node].concat(args));
+		
+		if(result)
+			results.push(result);
+	}
+	
+	return results;
+};
+
 
 DelegaterBuilder(function(aFunctionName, theArguments){
 	let nodes = this.values();
@@ -30,7 +51,7 @@ DelegaterBuilder(function(aFunctionName, theArguments){
 		return NodeList.from(results);
 	else
 		return results;	
-},NodeList.prototype, Node.prototype, HTMLElement.prototype, HTMLInputElement.prototype, Element.prototype);
+},NodeList.prototype, Node.prototype, HTMLElement.prototype, HTMLInputElement.prototype, Element.prototype, EventTarget.prototype);
 
 
 NodeList.from = function(){

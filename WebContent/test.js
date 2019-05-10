@@ -1,7 +1,7 @@
 document.ready(function() {
 	console.log("document ready");
-});
 
+});
 document.find(".test1").on("click", (function(aEvent) {
 	console.log("this:", this);
 	console.log("aEvent:", aEvent);

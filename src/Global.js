@@ -18,16 +18,15 @@
 		return document.ready.apply(document, arguments);
 	};
 
-	Global.create = function() {
+	Global.create = function(aContent, aContentType) {
 		if (typeof arguments[0] !== "string")
 			throw new Error("The first argument must be a string!");
 
-		let body = parser.parseFromString(arguments[0].trim(), arguments[1] || "text/html").find("body");
+		let parsed = parser.parseFromString(arguments[0].trim(), arguments[1] || "text/html");
+		let nodes = parsed.body.childNodes;
 		let frag = document.createDocumentFragment();
-		let nodes = body.childNodes;
-		while (nodes.length != 0)
-			frag.append(nodes[0]);
-
+		frag.append(nodes);
+		
 		return frag.childNodes;
 	};
 })(window || global);
