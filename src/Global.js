@@ -26,7 +26,6 @@
 		let nodes = parsed.body.childNodes;
 		let frag = document.createDocumentFragment();
 		frag.append(nodes);
-		
 		return frag.childNodes;
 	};
 })(window || global);

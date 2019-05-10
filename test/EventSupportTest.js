@@ -13,12 +13,10 @@ describe("EventSupport Tests", function() {
 	
 	it("test addEventListener", function(done){
 		window.addEventListener("click", function(event){
-			console.log("event:", event);
 			expect(event).toBeDefined();
 			done();
 		});
 		document.addEventListener("click", function(event){
-			console.log("event:", event);
 			expect(event).toBeDefined();
 			done();
 		});
