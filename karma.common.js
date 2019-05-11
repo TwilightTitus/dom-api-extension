@@ -3,30 +3,41 @@ const path = require('path');
 module.exports = {
 	// base path that will be used to resolve all patterns (eg. files,
 	// exclude)
-	basePath : "",	
+	basePath : "",
 	// frameworks to use
 	// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-	frameworks : [ "jasmine"],
+	frameworks : [ "jasmine" ],
 	// list of files / patterns to load in the browser
-	files : [ "test/index.js", "test/sites/**/*.html"],
+	files : ["src/**/*.js", "test/index.js", "test/sites/**/*.html" ],
 	// list of files / patterns to exclude
 	exclude : [],
 	// available preprocessors:
 	// https://npmjs.org/browse/keyword/karma-preprocessor
 	preprocessors : {
-		"src/*.js" : ["coverage"],
-		"src/**/*.js" : ["coverage"],
-		"test/*.js" : [ "webpack", "sourcemap","coverage"],
-		"test/sites/**/*.html": ["html2js"]
+		"src/**/*.js" : [ "webpack", "coverage"],
+		"test/*.js" : [ "webpack", "sourcemap"],
+		"test/sites/**/*.html" : [ "html2js" ]
 	},
 	webpack : {
-		mode : "production",
+		mode : "development",
 		devtool : "inline-source-map"
 	},
 	// test results reporter to use
 	// possible values: "dots", "progress"
 	// available reporters: https://npmjs.org/browse/keyword/karma-reporter
-	reporters : [ "progress", "coverage"],
+	reporters : ["progress", "coverage"],
+	coverageReporter : {
+		dir : 'coverage/',
+		reporters : [
+			{ type: 'html', subdir: 'report-html' },
+			{ type: 'lcov', subdir: 'report-lcov' },
+			{ type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
+			{ type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },
+			{ type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
+			{ type: 'text', subdir: '.', file: 'text.txt' },
+			{ type: 'text-summary', subdir: '.', file: 'text-summary.txt' }
+		]
+	},
 	port : 9876,
 	colors : true,
 	autoWatch : true,
@@ -35,5 +46,5 @@ module.exports = {
 	},
 	singleRun : false,
 	concurrency : Infinity
-	//browserNoActivityTimeout: 60000
+// browserNoActivityTimeout: 60000
 };
