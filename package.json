@@ -1,10 +1,10 @@
 {
   "name": "dom-api-extension",
-  "version": "1.0.2-beta5",
+  "version": "1.0.2-beta6",
   "description": "Extending the nativ browser dom api. It allows you to use the dom api in a fluit api way, like jquery",
   "main": "js/index.js",
   "scripts": {
-    "build": "webpack --config webpack.prod.js && webpack --config webpack.dev.js",
+    "build": "npm test && webpack --config webpack.prod.js && webpack --config webpack.dev.js",
     "dev-server": "webpack-dev-server --open --config webpack.dev-server.js",
     "karma:live": "karma start karma.live-dev.js",
     "karma:integration": "karma start karma.integration.js",
