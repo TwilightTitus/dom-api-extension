@@ -7,4 +7,13 @@ const callWithNodeList = function(aTarget, aFunction, aList) {
 			offset++;
 	}
 };
-export default {callWithNodeList:callWithNodeList};
+const callWithList = function(aTarget, aFunction, aList) {
+	for(let i = 0; i < aList.length; i++) {
+		if (aList[i])
+			aFunction.call(aTarget, aList[i]);
+	}
+};
+export default {
+	callWithNodeList : callWithNodeList,
+	callWithList : callWithList
+};

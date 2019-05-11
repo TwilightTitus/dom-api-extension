@@ -1,14 +1,13 @@
-import "../index";
-
-
 describe("EventSupport Tests", function() {
-	beforeAll(function(){
-		window.document.body.innerHTML = window.__html__['test/sites/EventSupportTest.html'];
+	beforeAll(function(done){
+		window.document.body.innerHTML = window.__html__["test/sites/EventSupportTest.html"];
+		done();
 	});
 	
-	it("is \"on\" function available", function(){		
+	it("is \"on\" function available", function(done){		
 		expect(typeof Document.prototype.on).toBe("function");
 		expect(typeof HTMLElement.prototype.on).toBe("function");
+		done();
 	});
 	
 	it("test addEventListener", function(done){
@@ -22,6 +21,5 @@ describe("EventSupport Tests", function() {
 		});
 		
 		document.trigger("click");
-	});
-	
+	});	
 });

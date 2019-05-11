@@ -8,4 +8,3 @@ import "./dom/HTMLInputElement";
 import "./dom/HTMLSelectElement";
 import "./dom/NodeList";
 import "./Global";
-import "./JQuery";

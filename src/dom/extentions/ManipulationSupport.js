@@ -38,12 +38,14 @@ const support = Extender("ManipulationSupport", function(Prototype) {
 	Prototype.append = function(){		
 		for(let i = 0; i < arguments.length; i++){
 			let arg = arguments[i];
-			if(arg instanceof NodeList)
+			if(Array.isArray(arg))
+				Utils.callWithList(this, Prototype.appendChild, arg);
+			else if(arg instanceof NodeList)
 				Utils.callWithNodeList(this, Prototype.appendChild, arg);
 			else if(arg instanceof Node)
 				this.appendChild(arg);
-			else if(arg instanceof String)
-				this.append(create(arg));
+			else if(typeof arg === "string")
+				Utils.callWithNodeList(this, Prototype.appendChild, create(arg));
 		}
 	};
 	
@@ -55,11 +57,13 @@ const support = Extender("ManipulationSupport", function(Prototype) {
 		let insert = prepend.bind(this, first);
 		for(let i = 0; i < arguments.length; i++){
 			let arg = arguments[i];
-			if(arg instanceof NodeList)
+			if(Array.isArray(arg))
+				Utils.callWithList(this, insert, arg);
+			else if(arg instanceof NodeList)
 				Utils.callWithNodeList(this, insert, arg);
 			else if(arg instanceof Node)
 				this.insertBefore(arg, first);
-			else if(arg instanceof String)
+			else if(typeof arg === "string")
 				this.prepend(create(arg));
 		}
 	};	

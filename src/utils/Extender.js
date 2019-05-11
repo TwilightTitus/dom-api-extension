@@ -1,4 +1,4 @@
-const EXTENSIONS_MAP = {};
+const EXTENSIONS_MAP = (window || global || {}).__DOM_API_EXTENSION_MAP = (window || global || {}).__DOM_API_EXTENSION_MAP || {};
 const Extender = function(aName, aExtention){
 	return function(aType){	
 		let extensions = EXTENSIONS_MAP[aType.name];
@@ -11,8 +11,6 @@ const Extender = function(aName, aExtention){
 		}
 		else
 			console.warn("duplicated load of extension \"" + aName + "\"!");
-		
-		
 	}
 };
 
