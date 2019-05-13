@@ -36,19 +36,15 @@ const support = Extender("ManipulationSupport", function(Prototype) {
 	};
 	
 	Prototype.append = function(){
-		try{
-			for(let i = 0; i < arguments.length; i++){
-				let arg = arguments[i];
-				if(arg instanceof Node)
-					this.appendChild(arg);
-				else if(typeof arg === "string")
-					Utils.callWithList(this, Prototype.appendChild, create(arg), this);
-				else if(Array.isArray(arg) || arg instanceof NodeList)
-					Utils.callWithList(this, Prototype.appendChild.bind(this), arg);
-			}
-		}catch (e) {			
-			console.log("Prototype:", Prototype, "Error:", e);
-			
+		let append = Prototype.appendChild.bind(this);
+		for(let i = 0; i < arguments.length; i++){
+			let arg = arguments[i];
+			if(arg instanceof Node)
+				this.appendChild(arg);
+			else if(typeof arg === "string")
+				create(arg).forEach(append);
+			else if(Array.isArray(arg) || arg instanceof NodeList)
+				arg.forEach(append);
 		}
 	};
 	
@@ -61,11 +57,11 @@ const support = Extender("ManipulationSupport", function(Prototype) {
 		for(let i = 0; i < arguments.length; i++){
 			let arg = arguments[i];
 			if(Array.isArray(arg) || arg instanceof NodeList)
-				Utils.callWithList(this, insert, arg);
+				arg.forEach(insert);
 			else if(arg instanceof Node)
 				this.insertBefore(arg, first);
 			else if(typeof arg === "string")
-				this.prepend(create(arg));
+				arg.forEach(insert);
 		}
 	};	
 });

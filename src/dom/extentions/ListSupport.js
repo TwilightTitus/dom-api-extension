@@ -8,12 +8,11 @@ const support = Extender("ListSupport", function(Prototype) {
 		
 		return -1;
 	};
-	
-	if(typeof Prototype.forEach === "undefined")
-		Prototype.forEach = function(){
-			return Array.prototype.forEach.apply(this, arguments);
-		};
-	
+
+	Prototype.forEach = function(){
+		return Array.prototype.forEach.apply(Array.from(this), arguments);
+	};
+
 	Prototype.first = function(){
 		if(this.length > 0)
 			return this[0];

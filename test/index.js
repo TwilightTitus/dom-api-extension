@@ -2,6 +2,4 @@
 import "../index";
 
 //TESTS
-import "./utils";
-import "./EventSupportTest";
-import "./ManipulationSupportTest";
+import "./tests";
