@@ -19,7 +19,7 @@ module.exports = {
 		"test/sites/**/*.html" : [ "html2js" ]
 	},
 	webpack : {
-		mode : "development",
+		mode : "production",
 		devtool : "inline-source-map"
 	},
 	// test results reporter to use

@@ -1,4 +1,6 @@
-const EXTENSIONS_MAP = (window || global || {}).__DOM_API_EXTENSION_MAP = (window || global || {}).__DOM_API_EXTENSION_MAP || {};
+import Utils from "./Utils";
+
+const EXTENSIONS_MAP = Utils.globalVar("__DOM_API_EXTENSION_MAP__", {});
 const Extender = function(aName, aExtention){
 	return function(aType){	
 		let extensions = EXTENSIONS_MAP[aType.name];

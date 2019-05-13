@@ -35,17 +35,20 @@ const support = Extender("ManipulationSupport", function(Prototype) {
 		return this;
 	};
 	
-	Prototype.append = function(){		
-		for(let i = 0; i < arguments.length; i++){
-			let arg = arguments[i];
-			if(Array.isArray(arg))
-				Utils.callWithList(this, Prototype.appendChild, arg);
-			else if(arg instanceof NodeList)
-				Utils.callWithNodeList(this, Prototype.appendChild, arg);
-			else if(arg instanceof Node)
-				this.appendChild(arg);
-			else if(typeof arg === "string")
-				Utils.callWithNodeList(this, Prototype.appendChild, create(arg));
+	Prototype.append = function(){
+		try{
+			for(let i = 0; i < arguments.length; i++){
+				let arg = arguments[i];
+				if(arg instanceof Node)
+					this.appendChild(arg);
+				else if(typeof arg === "string")
+					Utils.callWithList(this, Prototype.appendChild, create(arg), this);
+				else if(Array.isArray(arg) || arg instanceof NodeList)
+					Utils.callWithList(this, Prototype.appendChild.bind(this), arg);
+			}
+		}catch (e) {			
+			console.log("Prototype:", Prototype, "Error:", e);
+			
 		}
 	};
 	
@@ -57,10 +60,8 @@ const support = Extender("ManipulationSupport", function(Prototype) {
 		let insert = prepend.bind(this, first);
 		for(let i = 0; i < arguments.length; i++){
 			let arg = arguments[i];
-			if(Array.isArray(arg))
+			if(Array.isArray(arg) || arg instanceof NodeList)
 				Utils.callWithList(this, insert, arg);
-			else if(arg instanceof NodeList)
-				Utils.callWithNodeList(this, insert, arg);
 			else if(arg instanceof Node)
 				this.insertBefore(arg, first);
 			else if(typeof arg === "string")

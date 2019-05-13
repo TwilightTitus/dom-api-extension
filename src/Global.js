@@ -1,24 +1,28 @@
-(function(Global) {
+import Utils from "./utils/Utils";
 
-	Global.de = Global.de || {};
-	Global.de.titus = Global.de.titus || {};
-	Global.de.titus.dom = Global.de.titus.dom || {};
-	Global.de.titus.dom.api = Global.de.titus.dom.api || {};
-	Global.de.titus.dom.api.extention = {
-		VERSION : "${version}"
+const de = Utils.globalVar("de", {});
+de.titus = de.titus || {};
+de.titus.dom = de.titus.dom || {};
+de.titus.dom.api = de.titus.dom.api || {};
+if(typeof de.titus.dom.api.extention === "undefined") {
+	de.titus.dom.api.extention = {
+		VERSION : "${version}",
+		utils : {
+			Utils: Utils
+		}
 	};
 
 	const parser = new DOMParser();
 
-	Global.find = function() {
+	Utils.global.find = function() {
 		return document.find.apply(document, arguments);
 	};
 
-	Global.ready = function() {
+	Utils.global.ready = function() {
 		return document.ready.apply(document, arguments);
 	};
 
-	Global.create = function(aContent, aContentType) {
+	Utils.global.create = function(aContent, aContentType) {
 		if (typeof arguments[0] !== "string")
 			throw new Error("The first argument must be a string!");
 
@@ -28,4 +32,4 @@
 		frag.append(nodes);
 		return frag.childNodes;
 	};
-})(window || global);
+}
