@@ -3,6 +3,5 @@ import "../index";
 
 //TESTS
 import "./utils";
+import "./dom";
 import "./GlobalTest";
-import "./EventSupportTest";
-import "./ManipulationSupportTest";

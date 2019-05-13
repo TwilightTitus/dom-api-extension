@@ -1,4 +1,4 @@
-import Utils from "../../helpers/Utils";
+import Utils from "test/helpers/Utils";
 
 describe("ManipulationSupportTest Basic", function() {
 	beforeAll(function(done){
