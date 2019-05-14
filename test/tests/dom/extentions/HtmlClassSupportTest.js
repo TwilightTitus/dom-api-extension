@@ -24,13 +24,14 @@ describe("HtmlClassSupport Tests", function() {
 	});
 	
 	it("toggle class", function(done){
-		let expected = find("#id-2.class-1").first();		
+		let expected = find("#id-3.class-1").first();
+		expect(expected).toBeDefined();
 		expected.toggleClass("class-1");
-		let element = find("#id-2.class-1").first();
+		let element = find("#id-3.class-1").first();
 		expect(element).toBeUndefined();
 		
 		expected.toggleClass("class-1");
-		element = find("#id-2.class-1").first();
+		element = find("#id-3.class-1").first();
 		expect(element).toBeDefined();
 		expect(element).toBe(expected);	
 		
