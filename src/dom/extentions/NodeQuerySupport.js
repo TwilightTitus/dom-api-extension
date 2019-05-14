@@ -23,16 +23,20 @@ const support = Extender("NodeQuerySupport", function(Prototype) {
 			return this.parentNode;
 		else if(typeof arguments[0] === "string"){
 			let parent = this.parentNode;
+			try{
 			while(!parent.is(arguments[0]))
 				parent = parent.parent(arguments[0]);
+			}catch (e) {
+				console.log("parent:", parent, "error:", e);
+			}
 			return parent;
 		}
 	};
 	
-	Prototype.parents = function() {
+	Prototype.parents = function() {		
 		let result = new Array();
 		let parent = Prototype.parent.apply(this, arguments);
-		while(parent){
+		while(parent && !(parent instanceof Document)){
 			result.push(parent);
 			parent = Prototype.parent.apply(parent, arguments);
 		}
