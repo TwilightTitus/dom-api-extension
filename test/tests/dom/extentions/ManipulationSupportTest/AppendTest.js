@@ -2,7 +2,6 @@ import Utils from "test/helpers/Utils";
 
 describe("ManipulationSupportTest Append", function() {
 	beforeAll(function(done){
-		window.document.body.innerHTML = "";
 		done();
 	});
 	
@@ -101,4 +100,8 @@ describe("ManipulationSupportTest Append", function() {
 		element.remove();
 		done();
 	});	
+	
+	afterAll(function(done){
+		done();
+	});
 });

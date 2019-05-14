@@ -22,4 +22,9 @@ describe("EventSupport Tests", function() {
 		
 		document.trigger("click");
 	});	
+	
+	afterAll(function(done){
+		window.document.body.innerHTML = "";
+		done();
+	});
 });

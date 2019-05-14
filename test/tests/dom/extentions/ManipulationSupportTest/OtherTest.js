@@ -2,7 +2,6 @@ import Utils from "test/helpers/Utils";
 
 describe("ManipulationSupportTest Basic", function() {
 	beforeAll(function(done){
-		window.document.body.innerHTML = "";
 		done();
 	});	
 	
@@ -25,6 +24,10 @@ describe("ManipulationSupportTest Basic", function() {
 	
 	it("function: content", function(done){		
 		expect(document.body.childNodes).toBe(document.body.content());
+		done();
+	});
+	
+	afterAll(function(done){
 		done();
 	});
 });

@@ -2,7 +2,6 @@ import Utils from "test/helpers/Utils";
 
 describe("ManipulationSupportTest Prepend", function() {
 	beforeAll(function(done){
-		window.document.body.innerHTML = "";
 		done();
 	});
 	
@@ -31,6 +30,10 @@ describe("ManipulationSupportTest Prepend", function() {
 		expect(result.childNodes.length).toBe(2);
 		expect(document.body.childNodes[0]).toBe(result);
 		element.remove();
+		done();
+	});
+	
+	afterAll(function(done){
 		done();
 	});
 });
