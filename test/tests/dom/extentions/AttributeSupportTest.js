@@ -22,7 +22,7 @@ describe("AttributeSupport Tests", function() {
 	
 	it("set attr", function(done){
 		let element = find("#id-2").first();
-		let key = Utils.uuid();
+		let key = Utils.domId();
 		element.attr(key , Utils.uuid());
 		let attr = element.attr(key);
 		expect(attr).toBeDefined();
@@ -40,7 +40,7 @@ describe("AttributeSupport Tests", function() {
 	
 	it("delete attribute by null", function(done){
 		let element = find("#id-3").first();
-		let key = Utils.uuid();
+		let key = Utils.domId();
 		element.attr(key , Utils.uuid());
 		let attr = element.attr(key);
 		expect(attr).toBeDefined();
@@ -52,7 +52,7 @@ describe("AttributeSupport Tests", function() {
 	
 	it("delete attribute by undefined", function(done){
 		let element = find("#id-3").first();
-		let key = Utils.uuid();
+		let key = Utils.domId();
 		element.attr(key , Utils.uuid());
 		let attr = element.attr(key);
 		expect(attr).toBeDefined();
