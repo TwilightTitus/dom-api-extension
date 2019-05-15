@@ -1,8 +1,8 @@
 import extendPrototype from "../utils/ExtendPrototype";
-import BasicQuerySupport from "./extentions/BasicQuerySupport";
+import QuerySupport from "./extentions/QuerySupport";
 import ReadyEventSupport from "./extentions/ReadyEventSupport";
 
-extendPrototype(Document, BasicQuerySupport, ReadyEventSupport);
+extendPrototype(Document, QuerySupport, ReadyEventSupport);
 
 document.addEventListener("DOMContentLoaded", function(){
 	document.trigger("ready");

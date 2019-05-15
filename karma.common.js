@@ -21,7 +21,7 @@ module.exports = {
 		"test/sites/**/*.html" : [ "html2js" ]
 	},
 	webpack :  merge(webpackCommon, {
-		mode : "production",
+		mode : "development",
 		devtool : "inline-source-map"
 	}),
 	// test results reporter to use

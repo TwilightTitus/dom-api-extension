@@ -1,6 +1,6 @@
 describe("BasicQuerySupport Tests", function() {
 	beforeAll(function(done){
-		window.document.body.innerHTML = window.__html__["test/sites/BasicQuerySupportTest.html"];
+		window.document.body.innerHTML = window.__html__["test/sites/QuerySupportTest.html"];
 		done();
 	});
 	

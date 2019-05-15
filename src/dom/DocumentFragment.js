@@ -1,8 +1,8 @@
 import extendPrototype from "../utils/ExtendPrototype";
-import BasicQuerySupport from "./extentions/BasicQuerySupport";
+import QuerySupport from "./extentions/QuerySupport";
 import ManipulationSupport from "./extentions/ManipulationSupport";
 
-extendPrototype(DocumentFragment, BasicQuerySupport, ManipulationSupport);
+extendPrototype(DocumentFragment, QuerySupport, ManipulationSupport);
 
 
 
