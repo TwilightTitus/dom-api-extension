@@ -1,4 +1,4 @@
-describe("BasicQuerySupport Tests", function() {
+describe("QuerySupport Tests", function() {
 	beforeAll(function(done){
 		window.document.body.innerHTML = window.__html__["test/sites/QuerySupportTest.html"];
 		done();

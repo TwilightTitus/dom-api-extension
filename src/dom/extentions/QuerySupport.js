@@ -80,23 +80,23 @@ const support = Extender("BasicQuerySupport",function(Prototype) {
 	Prototype.selector = function(){
 		if(this instanceof Document)
 			return undefined;
-		if(typeof this.id === "undefined" || this.id.length == 0){
+		else if(this.id)
+			return "#" + this.id;
+		else{			
+			let selector = this.tagName.toLowerCase();
 			let parent = this.parent();
-			if(parent instanceof Document || parent instanceof  DocumentFragment)
-				parent = undefined;
-			let selector = this.localName.toLowerCase();
-			if(typeof parent !== "undefined"){
+			if(parent){
 				let sameTagSiblings = parent.find(":scope>" + selector);			
 				if (sameTagSiblings instanceof NodeList) {
-					let index = sameTagSiblings.indexOf(this) + 1;
+					let index = sameTagSiblings.indexOf(this);
 					if (index > 0)
-						selector += ':nth-child(' + index + ')';
+						selector += ':nth-child(' + (index + 1) + ')';
 				}		
-			}
-			return typeof parent !== "undefined" ? parent.selector() + ">" + selector : selector;
+				let parentSelector = parent.selector();
+				return parentSelector ? parentSelector + ">" + selector : selector;
+			} 
+			return selector;
 		}
-		else
-			return "#" + this.id;
 	};	
 
 	Prototype.closests = function(aQuery) {
