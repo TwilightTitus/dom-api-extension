@@ -12,19 +12,14 @@ const support = Extender("BasicQuerySupport",function(Prototype) {
 				if(result.length == 0)
 					return;
 			}			
-			if(typeof match[2] !== "undefined")
-				result = result.parent(match[2]);
-			else
-				result = result.parent();
-			
-			if(typeof result === "undefined")
-				return;
-			
-			let nextSelector = aSelector.substr(match.index + match[0].length).trim();
-			if(nextSelector.trim().length > 0)
-				return result.find(nextSelector);
-			
-			return result;		
+			result = result.parent(match[2]);			
+			if(result){			
+				let nextSelector = aSelector.substr(match.index + match[0].length).trim();
+				if(nextSelector.trim().length > 0)
+					return result.find(nextSelector);
+				
+				return result;
+			}
 		}
 		else
 			return this.querySelectorAll(aSelector);
@@ -51,9 +46,7 @@ const support = Extender("BasicQuerySupport",function(Prototype) {
 	
 	Prototype.parent = function() {
 		if(!this.parentNode)
-			return undefined;
-		else if(arguments.length == 0)
-			return this.parentNode;
+			return undefined;		
 		else if(typeof arguments[0] === "string"){
 			let parent = this.parentNode;
 			try{
@@ -64,6 +57,7 @@ const support = Extender("BasicQuerySupport",function(Prototype) {
 			}
 			return parent;
 		}
+		return this.parentNode;
 	};
 	
 	Prototype.parents = function() {		
@@ -99,24 +93,28 @@ const support = Extender("BasicQuerySupport",function(Prototype) {
 		}
 	};	
 
-	Prototype.closests = function(aQuery) {
-		if(this.is(aQuery))
-			return this;
-		else{
-			let result = this.find(aQuery, true);
-			if(result.length > 0)
-				return result;
+	Prototype.closest = function(aQuery) {			
+		let node = this;
+		while(node){
+			let closests = node.find(aQuery);
+			if(closests && closests.length > 0)
+				return closests;
+			else if(node.is(aQuery))
+				return NodeList.from(node);
 			
-			let parent = this.parent();
-			if(parent)
-				return parent.closest(aQuery);
-		}		
+			node = node.parent();		
+		}
 	};
 	
-	Prototype.closest = function(aQuery){
-		let result = this.closests(aQuery);
-		if(result)
-			return result[0];
+	Prototype.nested = function(aQuery){
+		if(this.is(aQuery))
+			return NodeList.from(node);	
+		
+		let nested = this.find(aQuery);
+		if(nested && nested.length > 0)
+			return nested;
+		else
+			return this.parent(aQuery);
 	};
 });
 export default support;

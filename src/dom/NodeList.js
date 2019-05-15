@@ -55,9 +55,8 @@ DelegaterBuilder(function(aFunctionName, theArguments){
 
 
 NodeList.from = function(){
-	if(arguments.length == 1 && typeof arguments[0] !== "undefined" &&  arguments[0] instanceof NodeList){
-		return arguments[0];		
-	}
+	if(arguments.length == 1 && arguments[0] && arguments[0] instanceof NodeList)
+		return arguments[0];
 	else{
 		let args = Array.from(arguments);
 		let internal = {
@@ -65,15 +64,19 @@ NodeList.from = function(){
 		};
 		
 		while(args.length > 0){
-			let list = Array.from(args.shift());		
+			let arg = args.shift();
+			let list = Array.from(arg);
+			if(!list || list.length === 0)
+				list = [arg];
+			
 			for(let i = 0; i < list.length; i++){
-				if(typeof list[i] !== "undefined" && list[i] instanceof Node){
+				if(list[i] && list[i] instanceof Node){
 					internal[i] = {value: list[i], enumerable: true};
 					internal.length.value++;
 				}
 			}
 		}
 	
-		return Object.create(NodeList.prototype,internal );
+		return Object.create(NodeList.prototype, internal);
 	}
 }
