@@ -1,28 +1,47 @@
 import Extender from "../../utils/Extender";
 
-const support = Extender("BasicQuerySupport",function(Prototype) {
-	const parentSelector = /:parent(\(\"([^\)]*)\"\))?/i;
-	
-	Prototype.find = function(aSelector) {
-		let match = parentSelector.exec(aSelector);
-		if(match){
-			let result = this;
-			if(match.index > 0){
-				result = this.querySelectorAll(aSelector.substr(0, match.index));
-				if(result.length == 0)
-					return;
-			}			
-			result = result.parent(match[2]);			
-			if(result){			
-				let nextSelector = aSelector.substr(match.index + match[0].length).trim();
-				if(nextSelector.trim().length > 0)
-					return result.find(nextSelector);
-				
-				return result;
-			}
+const parentSelector = /:parent(\(\"([^\)]*)\"\))?/i;
+const queryExecuter = function(aElement, aSelector){
+	let match = parentSelector.exec(aSelector);
+	if(match){
+		let result = aElement;
+		if(match.index > 0){
+			result = aElement.querySelectorAll(aSelector.substr(0, match.index));
+			if(result.length == 0)
+				return;
+		}			
+		result = result.parent(match[2]);			
+		if(result){			
+			let nextSelector = aSelector.substr(match.index + match[0].length).trim();
+			if(nextSelector.trim().length > 0)
+				return result.find(nextSelector);
+			
+			return result;
 		}
-		else
-			return this.querySelectorAll(aSelector);
+	}
+	else
+		return aElement.querySelectorAll(aSelector);
+};
+
+
+const support = Extender("QuerySupport",function(Prototype) {	
+	Prototype.find = function() {
+		let nodes = [];
+		let args = Array.from(arguments);
+		let arg = args.shift();
+		while(arg){
+			if(typeof arg === "string"){
+				let result = queryExecuter(this, arg);
+				if(result && result.length > 0)
+					nodes.push(result);
+			}
+			
+			arg = args.shift();
+		}
+		
+		let result = NodeList.from.apply(null, nodes);
+		
+		return result;
 	};
 	
 	Prototype.is = function() {
@@ -108,13 +127,13 @@ const support = Extender("BasicQuerySupport",function(Prototype) {
 	
 	Prototype.nested = function(aQuery){
 		if(this.is(aQuery))
-			return NodeList.from(node);	
+			return NodeList.from(this);	
 		
 		let nested = this.find(aQuery);
 		if(nested && nested.length > 0)
 			return nested;
 		else
-			return this.parent(aQuery);
+			return NodeList.from(this.parent(aQuery));
 	};
 });
 export default support;

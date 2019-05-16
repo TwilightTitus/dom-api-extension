@@ -24,59 +24,64 @@ NodeList.applyTo = function(){
 	return results;
 };
 
-
-DelegaterBuilder(function(aFunctionName, theArguments){
-	let nodes = this.values();
-	let node = nodes.next();
-	let results = [];
-	while(node && node.value){
-		node = node.value;
-		if(typeof node !== "undefined" && typeof node[aFunctionName] === "function"){
-			let result = node[aFunctionName].apply(node, theArguments);
-			if(typeof result !== "undefined" && result != null){
-				if(result instanceof Array)
-					results = results.concat(result);
-				else if(result instanceof NodeList)
-					results = results.concat(Array.from(result));
-				else
-					results.push(result)
-			}		
-		}
-		node = nodes.next();		
+NodeList.prototype.val = function() {
+	if(this.length > 0){
+		let result = new Map();
+		this.forEach(function(node){
+			if(typeof node.val === "function"){
+				let value = node.val();
+				if(typeof value !== "undefined" && value != null)
+					result.set((node.name || node.id || node.selector()), node.val());
+			}
+		});	
+		return result;
 	}
-	
-	if(results.length == 0)
-		return undefined;
-	else if(results[0] instanceof Node)
-		return NodeList.from(results);
-	else
-		return results;	
-},NodeList.prototype, Node.prototype, HTMLElement.prototype, HTMLInputElement.prototype, Element.prototype, EventTarget.prototype);
-
+};
 
 NodeList.from = function(){
-	if(arguments.length == 1 && arguments[0] && arguments[0] instanceof NodeList)
-		return arguments[0];
-	else{
-		let args = Array.from(arguments);
-		let internal = {
-			length: {value: 0}
-		};
-		
-		while(args.length > 0){
-			let arg = args.shift();
+	let args = Array.from(arguments);
+	let data = {};
+	let counter = 0;
+	
+	while(args.length > 0){
+		let arg = args.shift();
+		if(typeof arg !== "undefined" && arg != null){
 			let list = Array.from(arg);
 			if(!list || list.length === 0)
 				list = [arg];
-			
+							
 			for(let i = 0; i < list.length; i++){
 				if(list[i] && list[i] instanceof Node){
-					internal[i] = {value: list[i], enumerable: true};
-					internal.length.value++;
+					data[counter++] = {value: list[i], enumerable: true};
 				}
-			}
+			}			
 		}
-	
-		return Object.create(NodeList.prototype, internal);
 	}
-}
+	
+	data.length = {value: counter};
+	
+	return  Object.create(NodeList.prototype, data);
+};
+
+
+DelegaterBuilder(function(aFunctionName, theArguments){
+	let results = [];	
+	this.forEach(function(node){
+		if(node && typeof node[aFunctionName] === "function"){
+			let result = node[aFunctionName].apply(node, theArguments);
+			if(result){ 
+				if(result instanceof NodeList)
+					results = results.concat(Array.from(result));
+				else
+					results.push(result);
+			}		
+		}
+	});
+	
+	if(results.length === 0)
+		return undefined;
+	else if(results[0] instanceof Node || results[0] instanceof NodeList)
+		return NodeList.from.apply(null, results);
+	else
+		return results;
+},NodeList.prototype, Node.prototype, HTMLElement.prototype, HTMLInputElement.prototype, Element.prototype, EventTarget.prototype);
