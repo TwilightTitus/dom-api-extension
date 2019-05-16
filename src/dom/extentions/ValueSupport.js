@@ -51,7 +51,7 @@ const InputTypes =[
 			else if(this.checked)
 				return this.value;				
 		},
-		set : function(aValue){
+		set : function(aValue){			
 			if(typeof aValue === "boolean")
 				this.checked = aValue;
 			else if(typeof aValue === "string")

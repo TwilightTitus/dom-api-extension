@@ -30,7 +30,7 @@ NodeList.prototype.val = function() {
 		this.forEach(function(node){
 			if(typeof node.val === "function"){
 				let value = node.val();
-				if(typeof value !== "undefined" && value != null)
+				if(value)
 					result.set((node.name || node.id || node.selector()), node.val());
 			}
 		});	
