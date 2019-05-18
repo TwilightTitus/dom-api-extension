@@ -9,15 +9,15 @@ const queryExecuter = function(aElement, aSelector){
 			result = aElement.querySelectorAll(aSelector.substr(0, match.index));
 			if(result.length == 0)
 				return;
-		}			
+		}	
 		result = result.parent(match[2]);			
-		if(result){			
+		if(result){
 			let nextSelector = aSelector.substr(match.index + match[0].length).trim();
-			if(nextSelector.trim().length > 0)
-				return result.find(nextSelector);
+			if(nextSelector.length > 0)
+				result = result.find(nextSelector);
 			
 			return result;
-		}
+		}		
 	}
 	else
 		return aElement.querySelectorAll(aSelector);
@@ -32,7 +32,7 @@ const support = Extender("QuerySupport",function(Prototype) {
 		while(arg){
 			if(typeof arg === "string"){
 				let result = queryExecuter(this, arg);
-				if(result && result.length > 0)
+				if(result)
 					nodes.push(result);
 			}
 			
@@ -40,7 +40,6 @@ const support = Extender("QuerySupport",function(Prototype) {
 		}
 		
 		let result = NodeList.from.apply(null, nodes);
-		
 		return result;
 	};
 	

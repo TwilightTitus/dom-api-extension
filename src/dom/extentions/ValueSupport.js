@@ -3,44 +3,24 @@ import Extender from "../../utils/Extender";
 const InputTypes =[
 	{
 		selector : "select",
-		get : function(){
-			let result = [];
-			this.find("option[selected]").forEach((function(result, option){
-				result.push(option.value);
-			}).bind(this, result));
-			return result;				
+		get : function(){			
+			return this.values;				
 		},
 		set : function(){				
 			let values = [];
-			if(arguments.length == 1 && typeof arguments[0] !== "undefined")
-				values = values.concat(arguments[0]);
-			else if(arguments.length > 1)
-				values = values.concat(Array.from(arguments));
-			
-			this.find("option").forEach((function(values, option){
-				let check = values.indexOf(option.value) > -1;
-				if(check)
-					option.selected = true;
+			let args = Array.from(arguments);
+			let arg = args.shift();
+			while(arg){
+				if(Array.isArray(arg))
+					values = values.concat(arg);
 				else
-					option.selected = false;
-			}).bind(this, values));
+					values.push(arg);
+				
+				arg = args.shift();
+			}
+			this.value = values;
 			
 			this.trigger("changed");
-		}			
-	},
-	{
-		selector : "option",
-		get : function(){
-			if(this.selected)
-				return this.value;
-		},
-		set : function(aValue){
-			if(typeof aValue === "boolean")
-				this.selected = aValue;
-			else if(typeof aValue === "string")
-				this.value = aValue;
-			
-			this.trigger("changed");				
 		}			
 	},
 	{

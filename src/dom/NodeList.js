@@ -46,20 +46,19 @@ NodeList.from = function(){
 	while(args.length > 0){
 		let arg = args.shift();
 		if(typeof arg !== "undefined" && arg != null){
-			let list = Array.from(arg);
-			if(!list || list.length === 0)
-				list = [arg];
-							
-			for(let i = 0; i < list.length; i++){
-				if(list[i] && list[i] instanceof Node){
-					data[counter++] = {value: list[i], enumerable: true};
+			if(arg instanceof Node)
+				data[counter++] = {value: arg, enumerable: true};
+			else if(arg instanceof NodeList || Array.isArray(arg)){
+				for(let i = 0; i < arg.length; i++){
+					if(arg[i] && arg[i] instanceof Node){
+						data[counter++] = {value: arg[i], enumerable: true};
+					}
 				}
-			}			
+			}
 		}
 	}
 	
 	data.length = {value: counter};
-	
 	return  Object.create(NodeList.prototype, data);
 };
 
