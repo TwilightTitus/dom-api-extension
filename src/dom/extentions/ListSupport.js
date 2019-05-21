@@ -11,7 +11,7 @@ const support = Extender("ListSupport", function(Prototype) {
 
 	Prototype.forEach = function(){
 		return Array.prototype.forEach.apply(Array.from(this), arguments);
-	};
+	};	
 
 	Prototype.first = function(){
 		if(this.length > 0)

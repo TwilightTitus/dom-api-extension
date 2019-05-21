@@ -3,8 +3,14 @@ import Extender from "../../utils/Extender";
 const InputTypes =[
 	{
 		selector : "select",
-		get : function(){			
-			return this.values;				
+		get : function(){
+			let result = [];
+			this.find("option").forEach(function(option){
+				if(option.selected)
+					result.push(option.value);
+			});
+			
+			return result;
 		},
 		set : function(){				
 			let values = [];
@@ -19,6 +25,9 @@ const InputTypes =[
 				arg = args.shift();
 			}
 			this.value = values;
+			this.find("option").forEach(function(option){
+				option.selected = values.indexOf(option.value) >= 0;
+			});
 			
 			this.trigger("changed");
 		}			
@@ -26,16 +35,18 @@ const InputTypes =[
 	{
 		selector : "input[type=\"checkbox\"], input[type=\"radio\"]",
 		get : function(){
-			if(typeof this.value === "undefined" || this.value == "on")
+			if(this.value == "on" || this.value == "off")
 				return this.checked;
 			else if(this.checked)
 				return this.value;				
 		},
-		set : function(aValue){			
+		set : function(aValue){
 			if(typeof aValue === "boolean")
 				this.checked = aValue;
 			else if(typeof aValue === "string")
-				this.value = aValue;
+				this.checked = this.value == aValue;
+			else if(Array.isArray(aValue))
+				this.checked = aValue.indexOf(this.value) >= 0;
 			
 			this.trigger("changed");
 		}

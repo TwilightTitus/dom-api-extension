@@ -4,7 +4,7 @@ import ListSupport from "./extentions/ListSupport";
 
 extendPrototype(NodeList, ListSupport);
 
-NodeList.applyTo = function(){
+NodeList.prototype.applyTo = function(){
 	let args = Array.from(arguments);
 	let calling = args.shift();
 	let isFunction = typeof calling === "function";
@@ -12,10 +12,10 @@ NodeList.applyTo = function(){
 	for(let i = 0; i < this.length; i++){
 		let node = this[i];
 		let	result;
-		if(isfunction)
+		if(isFunction)
 			result = calling.apply([node].concat(args));
 		else if(typeof node[calling] === "function")
-			result = node[calling].apply([node].concat(args));
+			result = node[calling].apply(node, args);
 		
 		if(result)
 			results.push(result);
@@ -25,17 +25,21 @@ NodeList.applyTo = function(){
 };
 
 NodeList.prototype.val = function() {
-	if(this.length > 0){
-		let result = new Map();
-		this.forEach(function(node){
-			if(typeof node.val === "function"){
-				let value = node.val();
-				if(value)
-					result.set((node.name || node.id || node.selector()), node.val());
-			}
-		});	
-		return result;
+	if(arguments.length == 0){
+		if(this.length > 0){
+			let result = new Map();
+			this.forEach(function(node){
+				if(typeof node.val === "function"){
+					let value = node.val();
+					if(value)
+						result.set((node.name || node.id || node.selector()), node.val());
+				}
+			});	
+			return result;
+		}
 	}
+	else
+		NodeList.prototype.applyTo.apply(this, ["val"].concat(Array.from(arguments)));
 };
 
 NodeList.from = function(){
