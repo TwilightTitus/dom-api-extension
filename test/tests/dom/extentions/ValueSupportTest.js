@@ -88,37 +88,40 @@ describe("ValueSupport Tests", function() {
 		
 		done();
 	});	
-//	
-//	it("val set value to input[type=checkbox]", function(done){
-//		let element = find("#value-support-test-1 *");
-//		let values = element.val();
-//		expect(values).toBeDefined();
-//		expect(values.size).toBe(7);
-//		
-//		
-//		expect(values.get("checkbox-1")).toBeDefined();
-//		expect(values.get("checkbox-1")).toBe(true);
-//		
-//		expect(values.get("checkbox-2")).toBeUndefined();
-//		
-//		expect(values.get("checkbox-3")).toBeDefined();
-//		expect(values.get("checkbox-3")).toBe("checkbox-3");
-//		
-//		done();
-//	});	
-//	
-//	it("val set value to textarea", function(done){
-//		let element = find("#value-support-test-1 *");
-//		let values = element.val();
-//		expect(values).toBeDefined();
-//		expect(values.size).toBe(7);
-//		
-//		
-//		expect(values.get("textarea")).toBeDefined();
-//		expect(values.get("textarea")).toBe("textarea");
-//		
-//		done();
-//	});	
+
+	it("val set value to input[type=checkbox]", function(done){
+		let element = find("#value-support-test-5 [name=\"checkbox-1\"]").first();			
+		element.val(true)
+		expect(element.val()).toBe(true);		
+		element.val(false)
+		expect(element.val()).toBe(false);
+		
+		element = find("#value-support-test-5 [name=\"checkbox-2\"]").first();			
+		element.val(true)
+		expect(element.val()).toBe("checkbox-value-2");		
+		element.val(false)
+		expect(element.val()).toBeUndefined();
+		
+		element = find("#value-support-test-5 [name=\"checkbox-2\"]").first();			
+		element.val("checkbox-value-2")
+		expect(element.val()).toBe("checkbox-value-2");		
+		element.val(false)
+		expect(element.val()).toBeUndefined();
+		
+		
+		done();
+	});	
+	
+	it("val set value to textarea", function(done){
+		let element = find("#value-support-test-6 textarea").first();
+		expect(element.val()).toBe("textarea");
+		
+		let expected = Utils.uuid();
+		element.val(expected);
+		expect(element.val()).toBe(expected);
+		
+		done();
+	});	
 	
 	afterAll(function(done){
 		window.document.body.innerHTML = "";
