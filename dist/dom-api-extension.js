@@ -150,7 +150,7 @@ de.titus.dom = de.titus.dom || {};
 de.titus.dom.api = de.titus.dom.api || {};
 if(typeof de.titus.dom.api.extention === "undefined") {
 	de.titus.dom.api.extention = {
-		VERSION : "1.0.2-beta6",
+		VERSION : "1.0.2-beta7",
 		utils : {
 			Utils: _utils_Utils__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"]
 		}
