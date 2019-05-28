@@ -98,14 +98,20 @@ const support = Extender("EventSupport", function(Prototype) {
 
 	
 	Prototype.trigger = function(){
-		let event = undefined;
-		if(typeof this["on" + arguments[0]] === "function"){
+		let args = Array.from(arguments);		
+		let event = args.shift();		
+		let data = args.length > 1 ? args.shift() : undefined;
+		let delegatedEvent = data instanceof Event ? data : undefined;
+		
+		
+		if(typeof this["on" + event] === "function"){
 			event = document.createEvent("Event");
-			event.initEvent(arguments[0], true, true);
+			event.initEvent(event, true, true);
 		}
 		else
-			event = new CustomEvent(arguments[0],  { bubbles: true, cancelable: true, detail: arguments[1] });
+			event = new CustomEvent(event,  { bubbles: true, cancelable: true, detail: data });
 		
+		event.delegatedEvent = delegatedEvent;		
 		this.dispatchEvent(event);
 		return this;
 	};
