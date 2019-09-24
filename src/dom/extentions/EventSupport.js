@@ -71,9 +71,9 @@ const support = Extender("EventSupport", function(Prototype) {
 		
 		let removalHandler = [];
 		if(typeof events === "undefined"){
-			eventMap = this.__callbackMap[callback];
+			let eventMap = this.__callbackMap[callback];
 			if(typeof eventMap !== "undefined"){
-				eventMap.getOwnPropertyNames().forEach((function(result, eventMap, event){
+			    Object.getOwnPropertyNames(eventMap).forEach((function(result, eventMap, event){
 					let handler = eventMap[event];
 					if(typeof handler !== "undefined")
 						result.push(handler);					
@@ -84,10 +84,10 @@ const support = Extender("EventSupport", function(Prototype) {
 		}
 		else {
 			events.forEach((function(result, event){
-				Object.getPropertyNames(this.__callbackMap).forEach((function(aEvent, Callback){
+			    Object.getOwnPropertyNames(this.__callbackMap).forEach((function(aEvent, Callback){
 					let eventMap = this.__callbackMap[Callback];
 					delete eventMap[aEvent];
-					if(eventMap.getOwnPropertyNames() == 0)
+					if(Object.getOwnPropertyNames(eventMap).length == 0)
 						delete this.__callbackMap[Callback];
 				}).bind(this, event));								
 			}).bind(this));

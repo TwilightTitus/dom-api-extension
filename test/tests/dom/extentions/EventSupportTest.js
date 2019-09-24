@@ -23,6 +23,23 @@ describe("EventSupport Tests", function() {
 		document.trigger("click");
 	});	
 	
+	it("test removeOn", function(done){
+	    let container = find("#remove-on");
+	    let handler = function(event){ };
+	    
+	    container.on("test", handler);	    
+	    container.removeOn("test");
+	    
+	    container.on("test", handler);     
+        container.removeOn(handler);
+        
+        container.on("test", handler);      
+        container.removeOn("test", handler);
+
+        
+        done();
+    }); 
+	
 	afterAll(function(done){
 		window.document.body.innerHTML = "";
 		done();
