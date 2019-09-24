@@ -65,7 +65,7 @@ const support = Extender("EventSupport", function(Prototype) {
 		if(typeof arguments[0] === "string")
 			events = arguments[0].split(/(\s+)|(\s*,\s*)/);
 		else if(typeof arguments[0] === "function")
-			callback = arguments[0].shift();
+			callback = arguments[0];
 		else
 			throw new Error("Wrong argument! -> call function([event|handler])");
 		
